@@ -8,89 +8,101 @@
 body{
     margin:0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    background: radial-gradient(circle at top, #1f2a38, #0f1720);
     color:white;
     text-align:center;
 }
 
+/* Contenedor */
 .container{
     margin-top:60px;
 }
 
+/* Título */
 h1{
-    font-size:32px;
-    margin-bottom:10px;
+    font-size:34px;
+    letter-spacing:1px;
 }
 
+/* Círculo de estado */
 .status{
-    margin:20px auto;
-    width:200px;
-    height:200px;
+    margin:30px auto;
+    width:220px;
+    height:220px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:18px;
     font-weight:bold;
-    transition:0.3s;
-    background:#333;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
+    background:#222;
+    border:3px solid #444;
+    transition:0.4s;
 }
 
+/* Estados */
 .connected{
     background:#00c853;
-    box-shadow:0 0 30px #00ff88;
+    box-shadow:0 0 25px #00ff88;
 }
 
 .detected{
-    background:#d50000;
+    background:#ff1744;
     box-shadow:0 0 40px #ff1744;
     animation:pulse 1s infinite;
 }
 
 @keyframes pulse{
     0%{transform:scale(1);}
-    50%{transform:scale(1.05);}
+    50%{transform:scale(1.08);}
     100%{transform:scale(1);}
 }
 
+/* Botones */
 button{
-    padding:15px 30px;
+    padding:15px 35px;
     margin:10px;
     border:none;
     border-radius:30px;
     font-size:16px;
     cursor:pointer;
     transition:0.3s;
+    font-weight:bold;
 }
 
+/* Botón conectar */
 .connect-btn{
-    background:#2979ff;
+    background:linear-gradient(45deg,#2979ff,#00c6ff);
     color:white;
 }
 
-.connect-btn:hover{
-    background:#5393ff;
-}
-
+/* Abrir */
 .open-btn{
-    background:#00c853;
-    color:white;
+    background:linear-gradient(45deg,#00c853,#64dd17);
 }
 
+/* Cerrar */
 .close-btn{
-    background:#d50000;
-    color:white;
+    background:linear-gradient(45deg,#d50000,#ff1744);
 }
 
+/* Hover */
 button:hover{
-    transform:scale(1.05);
+    transform:scale(1.08);
+    box-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
-footer{
-    margin-top:50px;
-    opacity:0.6;
+/* Texto estado */
+.info{
+    margin-top:15px;
     font-size:14px;
+    opacity:0.7;
+}
+
+/* Footer */
+footer{
+    margin-top:60px;
+    opacity:0.5;
 }
 </style>
 </head>
@@ -99,7 +111,7 @@ footer{
 
 <div class="container">
     <h1>🔵 ServoBLE Control</h1>
-    <p>Sistema IoT con IdeaBoard + BLE</p>
+    <p class="info">Sistema IoT con IdeaBoard + BLE</p>
 
     <div id="statusCircle" class="status">
         Desconectado
@@ -109,16 +121,22 @@ footer{
     <br>
     <button class="open-btn" onclick="abrir()">Abrir Portón</button>
     <button class="close-btn" onclick="cerrar()">Cerrar Portón</button>
+
+    <p class="info" id="log">Esperando conexión...</p>
 </div>
 
 <footer>
-    © 2025 ServoBLE | Proyecto IoT CENFOTEC
+    © 2025 ServoBLE
 </footer>
 
 <script>
 let device;
 let characteristic;
 let statusCircle = document.getElementById("statusCircle");
+let log = document.getElementById("log");
+
+// BUFFER BLE
+let buffer = "";
 
 async function conectar(){
     try{
@@ -138,6 +156,7 @@ async function conectar(){
 
         statusCircle.innerText="Conectado";
         statusCircle.classList.add("connected");
+        log.innerText="BLE conectado correctamente";
 
     }catch(error){
         alert("Error: "+error);
@@ -145,18 +164,39 @@ async function conectar(){
 }
 
 function recibirDatos(event){
-    let valor = new TextDecoder().decode(event.target.value);
+    let chunk = new TextDecoder().decode(event.target.value);
+    buffer += chunk;
 
-    if(valor.includes("OBJETO_DETECTADO")){
-        statusCircle.innerText="OBJETO DETECTADO";
-        statusCircle.classList.remove("connected");
-        statusCircle.classList.add("detected");
-    }
+    if(buffer.includes("\n")){
+        let mensajes = buffer.split("\n");
 
-    if(valor.includes("AREA_LIBRE")){
-        statusCircle.innerText="Área Libre";
-        statusCircle.classList.remove("detected");
-        statusCircle.classList.add("connected");
+        for(let m of mensajes){
+            console.log("Mensaje:", m);
+
+            if(m.includes("OBJETO_DETECTADO")){
+                statusCircle.innerText="🚨 OBJETO DETECTADO";
+                statusCircle.classList.remove("connected");
+                statusCircle.classList.add("detected");
+                log.innerText="Sensor ultrasónico activo";
+            }
+
+            if(m.includes("AREA_LIBRE")){
+                statusCircle.innerText="Área Libre";
+                statusCircle.classList.remove("detected");
+                statusCircle.classList.add("connected");
+                log.innerText="Sin objetos detectados";
+            }
+
+            if(m.includes("PORTON_ABIERTO")){
+                log.innerText="Portón abierto";
+            }
+
+            if(m.includes("PORTON_CERRADO")){
+                log.innerText="Portón cerrado";
+            }
+        }
+
+        buffer = "";
     }
 }
 
@@ -175,4 +215,3 @@ async function cerrar(){
 
 </body>
 </html>
-
