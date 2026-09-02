@@ -1,15 +1,17 @@
-
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 ```
-<title>Para ti ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Adriana 💙💜</title>
 
 <style>
+
     * {
         margin: 0;
         padding: 0;
@@ -17,158 +19,320 @@
     }
 
     body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f5d0fe);
+        font-family: "Segoe UI", Arial, sans-serif;
         min-height: 100vh;
-        overflow-x: hidden;
-        color: #4a2040;
+        overflow: hidden;
+
+        background: linear-gradient(
+            135deg,
+            #0f172a,
+            #1e3a8a,
+            #4c1d95,
+            #312e81
+        );
+
+        color: white;
     }
 
-    /* Corazones de fondo */
-    .heart {
-        position: fixed;
-        color: rgba(255, 255, 255, 0.7);
-        animation: flotar 8s infinite ease-in;
-        z-index: -1;
+
+    /* =========================
+       ESTRELLAS DE FONDO
+    ========================== */
+
+    .star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.7;
+
+        animation: brillar 3s infinite alternate;
     }
 
-    @keyframes flotar {
-        0% {
-            transform: translateY(100vh) rotate(0deg);
-            opacity: 0;
+    @keyframes brillar {
+
+        from {
+            opacity: 0.2;
+            transform: scale(0.8);
         }
 
-        20% {
+        to {
             opacity: 1;
+            transform: scale(1.5);
         }
 
-        100% {
-            transform: translateY(-10vh) rotate(360deg);
-            opacity: 0;
-        }
     }
 
-    /* Contenedor principal */
-    .container {
-        max-width: 750px;
-        margin: auto;
-        padding: 30px 20px;
-    }
 
-    /* Secciones */
-    section {
-        min-height: 100vh;
+    /* =========================
+       PÁGINAS
+    ========================== */
+
+    .pagina {
+
         display: none;
-        flex-direction: column;
+
+        min-height: 100vh;
+
         justify-content: center;
         align-items: center;
+
+        padding: 20px;
+
         text-align: center;
-        animation: aparecer 1s ease;
+
+        animation: aparecer 0.8s ease;
+
     }
 
-    section.active {
+
+    .pagina.activa {
         display: flex;
     }
 
+
     @keyframes aparecer {
+
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(25px);
         }
 
         to {
             opacity: 1;
             transform: translateY(0);
         }
+
     }
+
+
+    /* =========================
+       TARJETA
+    ========================== */
+
+    .tarjeta {
+
+        width: 100%;
+        max-width: 650px;
+
+        padding: 50px 35px;
+
+        border-radius: 30px;
+
+        background: rgba(255,255,255,0.10);
+
+        border: 1px solid rgba(255,255,255,0.25);
+
+        backdrop-filter: blur(15px);
+
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.35);
+
+    }
+
+
+    /* =========================
+       TEXTOS
+    ========================== */
 
     h1 {
+
         font-size: 3rem;
-        margin-bottom: 20px;
+
+        margin-bottom: 25px;
+
+        background: linear-gradient(
+            90deg,
+            #93c5fd,
+            #c4b5fd,
+            #e9d5ff
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
     }
+
 
     h2 {
+
         font-size: 2rem;
+
         margin-bottom: 25px;
+
+        color: #ddd6fe;
+
     }
+
 
     p {
-        font-size: 1.2rem;
+
+        font-size: 1.15rem;
+
         line-height: 1.8;
-        margin-bottom: 25px;
-        max-width: 600px;
-    }
 
-    /* Tarjeta */
-    .card {
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(10px);
-        padding: 45px 30px;
-        border-radius: 25px;
-        box-shadow: 0 15px 40px rgba(100, 30, 80, 0.15);
-    }
-
-    /* Botones */
-    button,
-    .youtube-button {
-        border: none;
-        padding: 15px 30px;
-        border-radius: 30px;
-        font-size: 1rem;
-        cursor: pointer;
-        margin-top: 15px;
-        transition: 0.3s;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    button {
-        background: #d94680;
-        color: white;
-    }
-
-    button:hover {
-        transform: scale(1.08);
-        background: #be185d;
-    }
-
-    .youtube-button {
-        background: #ff0000;
-        color: white;
-        font-weight: bold;
-    }
-
-    .youtube-button:hover {
-        transform: scale(1.08);
-        background: #cc0000;
-    }
-
-    .music-icon {
-        font-size: 5rem;
         margin-bottom: 20px;
-        animation: musica 2s infinite ease-in-out;
+
+        color: #e0e7ff;
+
     }
 
-    @keyframes musica {
+
+    .nombre {
+
+        color: #c4b5fd;
+
+    }
+
+
+    /* =========================
+       ICONOS
+    ========================== */
+
+    .icono {
+
+        font-size: 70px;
+
+        margin-bottom: 25px;
+
+        animation: flotar 3s infinite ease-in-out;
+
+    }
+
+
+    @keyframes flotar {
+
         0%, 100% {
-            transform: rotate(-5deg) scale(1);
+            transform: translateY(0);
         }
 
         50% {
-            transform: rotate(5deg) scale(1.1);
+            transform: translateY(-12px);
         }
+
     }
 
-    .small-text {
-        font-size: 0.9rem;
-        opacity: 0.7;
+
+    /* =========================
+       BOTONES
+    ========================== */
+
+    button,
+    .boton-youtube {
+
+        display: inline-block;
+
+        margin-top: 20px;
+
+        padding: 15px 35px;
+
+        border-radius: 30px;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        border: none;
+
+        text-decoration: none;
+
+        transition: 0.3s;
+
+    }
+
+
+    button {
+
+        background: linear-gradient(
+            90deg,
+            #2563eb,
+            #7c3aed
+        );
+
+        color: white;
+
+        box-shadow:
+            0 10px 25px rgba(124,58,237,0.4);
+
+    }
+
+
+    button:hover {
+
+        transform: scale(1.08);
+
+        box-shadow:
+            0 15px 35px rgba(37,99,235,0.6);
+
+    }
+
+
+    .boton-youtube {
+
+        background: linear-gradient(
+            90deg,
+            #2563eb,
+            #7c3aed
+        );
+
+        color: white;
+
+    }
+
+
+    .boton-youtube:hover {
+
+        transform: scale(1.08);
+
+    }
+
+
+    /* =========================
+       CANCIÓN
+    ========================== */
+
+    .cancion {
+
+        margin-top: 20px;
+
+        padding: 20px;
+
+        border-radius: 20px;
+
+        background:
+            rgba(255,255,255,0.08);
+
+    }
+
+
+    .cancion h3 {
+
+        font-size: 1.5rem;
+
+        color: #c4b5fd;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .pequeno {
+
         margin-top: 25px;
+
+        font-size: 0.9rem;
+
+        opacity: 0.7;
+
     }
 
-    .heart-big {
-        font-size: 4rem;
-        margin-bottom: 20px;
-    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
 
     @media (max-width: 600px) {
 
@@ -181,13 +345,15 @@
         }
 
         p {
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
-        .card {
-            padding: 35px 20px;
+        .tarjeta {
+            padding: 40px 25px;
         }
+
     }
+
 </style>
 ```
 
@@ -196,158 +362,222 @@
 <body>
 
 ```
-<!-- Corazones animados -->
-<div class="heart" style="left:10%; font-size:25px;">❤️</div>
-<div class="heart" style="left:25%; font-size:18px; animation-delay:2s;">💕</div>
-<div class="heart" style="left:50%; font-size:30px; animation-delay:4s;">❤️</div>
-<div class="heart" style="left:70%; font-size:20px; animation-delay:1s;">💗</div>
-<div class="heart" style="left:85%; font-size:28px; animation-delay:3s;">💕</div>
+<!-- ESTRELLAS -->
+
+<div class="star" style="top:10%; left:15%;"></div>
+<div class="star" style="top:20%; left:80%;"></div>
+<div class="star" style="top:70%; left:10%;"></div>
+<div class="star" style="top:85%; left:75%;"></div>
+<div class="star" style="top:40%; left:90%;"></div>
+<div class="star" style="top:60%; left:30%;"></div>
+<div class="star" style="top:15%; left:50%;"></div>
+<div class="star" style="top:90%; left:45%;"></div>
 
 
-<div class="container">
+<!-- =========================
+     PÁGINA 1
+========================== -->
 
-    <!-- PANTALLA 1 -->
-    <section id="inicio" class="active">
+<section id="pagina1" class="pagina activa">
 
-        <div class="card">
+    <div class="tarjeta">
 
-            <div class="heart-big">💌</div>
+        <div class="icono">💌</div>
 
-            <h1>Hola, [Su nombre]</h1>
+        <h1>
+            Hola, Adriana
+        </h1>
+
+        <p>
+            Hay algo que quería compartir contigo.
+        </p>
+
+        <p>
+            Algo que quizás no sabía muy bien
+            cómo decir con palabras...
+        </p>
+
+        <button onclick="cambiarPagina('pagina2')">
+            Comenzar ✨
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     PÁGINA 2
+========================== -->
+
+<section id="pagina2" class="pagina">
+
+    <div class="tarjeta">
+
+        <div class="icono">✨</div>
+
+        <h2>
+            Hay personas que llegan...
+        </h2>
+
+        <p>
+            Y sin darse cuenta comienzan
+            a ocupar un lugar especial.
+        </p>
+
+        <p>
+            No sé exactamente cuándo pasó,
+            pero poco a poco te convertiste
+            en alguien importante para mí.
+        </p>
+
+        <button onclick="cambiarPagina('pagina3')">
+            Continuar 💙
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     PÁGINA 3
+========================== -->
+
+<section id="pagina3" class="pagina">
+
+    <div class="tarjeta">
+
+        <div class="icono">🌙</div>
+
+        <h2>
+            Son los pequeños momentos...
+        </h2>
+
+        <p>
+            Las conversaciones.<br>
+            Las risas.<br>
+            Las miradas.<br>
+            Los momentos simples.
+        </p>
+
+        <p>
+            Porque a veces son esas pequeñas cosas
+            las que terminan significando mucho más.
+        </p>
+
+        <button onclick="cambiarPagina('pagina4')">
+            Tengo algo para ti 🎁
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     PÁGINA 4 - CANCIÓN
+========================== -->
+
+<section id="pagina4" class="pagina">
+
+    <div class="tarjeta">
+
+        <div class="icono">🎵</div>
+
+        <h2>
+            Esta canción me hizo pensar en ti
+        </h2>
+
+        <p>
+            A veces una canción puede expresar
+            cosas que uno todavía no sabe
+            cómo decir.
+        </p>
+
+
+        <div class="cancion">
+
+            <h3>
+                💙 Más Que Amigos 💜
+            </h3>
 
             <p>
-                Hay algo que quería compartir contigo...
+                Matisse
             </p>
-
-            <p>
-                Algo que quizá no sabía muy bien cómo decir.
-            </p>
-
-            <button onclick="mostrarSeccion('mensaje1')">
-                Comenzar ✨
-            </button>
 
         </div>
 
-    </section>
+
+        <!-- ENLACE DE YOUTUBE -->
+
+        <a
+
+            href="https://www.youtube.com/watch?si=W3PgaEjkGIq1iP-3&v=0jSizQaI9KE&feature=youtu.be"
+
+            target="_blank"
+
+            class="boton-youtube">
+
+            ▶ Escuchar la canción
+
+        </a>
 
 
-    <!-- PANTALLA 2 -->
-    <section id="mensaje1">
+        <p class="pequeno">
 
-        <div class="card">
+            Escúchala con calma...
+            tal vez diga algo que yo todavía
+            no he sabido decir.
 
-            <h2>Hay personas que llegan...</h2>
+        </p>
 
-            <p>
-                y sin darse cuenta comienzan a ocupar un espacio especial.
-            </p>
+    </div>
 
-            <p>
-                No sé exactamente cuándo pasó,
-                pero poco a poco te convertiste
-                en alguien importante para mí.
-            </p>
-
-            <button onclick="mostrarSeccion('mensaje2')">
-                Continuar ↓
-            </button>
-
-        </div>
-
-    </section>
+</section>
 
 
-    <!-- PANTALLA 3 -->
-    <section id="mensaje2">
 
-        <div class="card">
-
-            <h2>Son los pequeños momentos...</h2>
-
-            <p>
-                Las conversaciones.
-                Las risas.
-                Las miradas.
-                Los momentos simples.
-            </p>
-
-            <p>
-                Porque a veces son esas pequeñas cosas
-                las que terminan significando mucho.
-            </p>
-
-            <button onclick="mostrarSeccion('musica')">
-                Tengo algo para ti 🎁
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- PANTALLA 4 - CANCIÓN -->
-    <section id="musica">
-
-        <div class="card">
-
-            <div class="music-icon">🎵</div>
-
-            <h2>Esta canción me hizo pensar en ti</h2>
-
-            <p>
-                A veces una canción puede decir cosas
-                que uno todavía no sabe cómo expresar
-                con palabras.
-            </p>
-
-            <h3>❤️ Más que amigos ❤️</h3>
-
-            <br>
-
-            <!-- CAMBIA EL ENLACE POR EL DE YOUTUBE -->
-            <a 
-                href="https://www.youtube.com/"
-                target="_blank"
-                class="youtube-button"
-            >
-                ▶ Escuchar la canción
-            </a>
-
-            <p class="small-text">
-                Escúchala cuando tengas un momento para ti. 🎧
-            </p>
-
-        </div>
-
-    </section>
-
-</div>
-
+<!-- =========================
+     JAVASCRIPT
+========================== -->
 
 <script>
 
-    function mostrarSeccion(id) {
+    function cambiarPagina(idPagina) {
 
-        // Oculta todas las secciones
-        const secciones = document.querySelectorAll("section");
+        const paginas =
+            document.querySelectorAll(".pagina");
 
-        secciones.forEach(function(seccion) {
-            seccion.classList.remove("active");
+
+        paginas.forEach(function(pagina) {
+
+            pagina.classList.remove("activa");
+
         });
 
-        // Muestra la sección seleccionada
-        document.getElementById(id).classList.add("active");
 
-        // Vuelve al inicio de la pantalla
+        document
+            .getElementById(idPagina)
+            .classList.add("activa");
+
+
         window.scrollTo({
+
             top: 0,
+
             behavior: "smooth"
+
         });
+
     }
 
 </script>
 ```
 
 </body>
+
 </html>
